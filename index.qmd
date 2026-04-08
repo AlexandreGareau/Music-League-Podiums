@@ -1,0 +1,77 @@
+---
+title: ""
+---
+
+```{r setup}
+#| message: false
+#| warning: false
+source("R/vapor_style.R")
+source("R/ranking.R")
+
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  cache = TRUE,
+  fig.height = 4,
+  fig.width = 8   # mostly ignored in dashboard, but harmless
+)
+```
+
+
+# Le prix du meilleur pointeur
+```{r}
+score %>% ranking_plot(score, "Nb. de points total")
+```
+
+# Prix du meilleur rang (le rang-coeur; sans ranceur)
+```{r}
+mean_rank %>% ranking_plot(mean_rank, "Rang moyen", decreasing = F)
+```
+
+# Prix pour le plus de 1ière place (1st)
+```{r}
+sum_1st %>% ranking_plot(sum_1st, "Nb. de 1st place")
+```
+
+# Prix de l'écrivain 
+```{r}
+vote_text %>% ranking_plot(vote_text, "Nb. de caractères écrit lors du vote")
+```
+
+# Prix du poète qui tent d'inspirer le vote
+```{r}
+sub_text %>% ranking_plot(sub_text, "Nb. de caractères écrit lors de la soumission")
+```
+
+# Prix choix du public
+```{r}
+mean_distinct %>% ranking_plot(mean_distinct, "Nb. de personne qui vote pour ta chanson")
+```
+# Prix du plus généreux
+```{r}
+mean_giver %>% ranking_plot(avg_points, "Nb. de points maximale donné par chanson")
+```
+# Prix citron 
+```{r}
+sum_last %>% ranking_plot(sum_last, "Nb. de dernière place")
+```
+
+# Prix contre-culture
+```{r}
+contrarian %>% ranking_plot(corr, "Corrélation avec la moyenne du groupe pour chaque vote", decreasing = F) +
+  scale_x_continuous(limits = c(-.5, .5))
+  
+```
+::: {.callout-note}
+Si une personne donne un score plus bas que la moyenne du groupe (excluant son prope score), cela signifie qu'elle est à contre-sens du groupe (corrélation négative)
+:::
+
+
+# Prix du coup de coeur pourri
+```{r}
+polarizing %>% ranking_plot(polarizing_index, "Index coup de coeur pourri")
+```
+::: {.callout-note}
+L'index coup de coeur est calculé avec la moyenne et l'écart-type des points pour chaque ronde. Plus la moyenne est élevée plus la personne est aimé. Plus l'écart-type est élevé cela signifie que le score moyen de la personne varie d'une ronde à l'autre, donc qu'il est parfois aimé et parfois moins aimé. Les deux indices sont alors multiplié pour créer l'index - Coup de coeur pourri.
+:::
+

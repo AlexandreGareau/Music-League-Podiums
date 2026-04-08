@@ -1,0 +1,23 @@
+project:
+  type: website
+
+website:
+  title: "Spotify Me Een Klap Papa - Saison 25-26"
+  navbar:
+    logo: logo/adaptive-icon.png
+    left:
+      - href: index.qmd
+        text: Podiums
+      - href: about.qmd
+        text: animation
+
+format:
+  html:
+    theme: vapor
+    smooth-scroll: true
+    echo: false
+    toc: true
+    toc-title: Liste des prix
+
+editor: visual
+
