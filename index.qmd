@@ -23,22 +23,22 @@ knitr::opts_chunk$set(
 score %>% ranking_plot(score, "Nb. de points total")
 ```
 
-# Prix du meilleur rang (le rang-coeur; sans ranceur)
+# Prix du meilleur au classement
 ```{r}
 mean_rank %>% ranking_plot(mean_rank, "Rang moyen", decreasing = F)
 ```
 
-# Prix pour le plus de 1ière place (1st)
+# Prix de la pute qui gagne tout le temps
 ```{r}
 sum_1st %>% ranking_plot(sum_1st, "Nb. de 1st place")
 ```
 
-# Prix de l'écrivain 
+# Prix l'hurluberlu qui écrit tout le temps
 ```{r}
 vote_text %>% ranking_plot(vote_text, "Nb. de caractères écrit lors du vote")
 ```
 
-# Prix du poète qui tent d'inspirer le vote
+# Prix du poète qui tente d'inspirer le vote
 ```{r}
 sub_text %>% ranking_plot(sub_text, "Nb. de caractères écrit lors de la soumission")
 ```
@@ -58,7 +58,7 @@ sum_last %>% ranking_plot(sum_last, "Nb. de dernière place")
 
 # Prix contre-culture
 ```{r}
-contrarian %>% ranking_plot(corr, "Corrélation avec la moyenne du groupe pour chaque vote", decreasing = F) +
+contrarian %>% ranking_plot(corr, "Corrélation avec la moyenne du groupe par vote", decreasing = F) +
   scale_x_continuous(limits = c(-.5, .5))
   
 ```
@@ -74,4 +74,9 @@ polarizing %>% ranking_plot(polarizing_index, "Index coup de coeur pourri")
 ::: {.callout-note}
 L'index coup de coeur est calculé avec la moyenne et l'écart-type des points pour chaque ronde. Plus la moyenne est élevée plus la personne est aimé. Plus l'écart-type est élevé cela signifie que le score moyen de la personne varie d'une ronde à l'autre, donc qu'il est parfois aimé et parfois moins aimé. Les deux indices sont alors multiplié pour créer l'index - Coup de coeur pourri.
 :::
+
+# Prix "Continue comme ça"
+```{r}
+improved %>% ranking_plot(improv_mean, "Moyenne d'amélioration ronde après ronde")
+```
 

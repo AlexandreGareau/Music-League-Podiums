@@ -154,5 +154,10 @@ all_votes %>%
   arrange(desc(polarizing_index))
 
 
-
-
+# Prix c'est beau continue comme ça
+improved <- 
+all_votes %>%
+  distinct(round_number, submitter, score) %>%
+  arrange(submitter, round_number) %>% 
+  mutate(improvement = score - lag(score), .by = submitter) %>% 
+  summarise(improv_mean = mean(improvement, na.rm = T), .by = submitter)

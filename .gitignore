@@ -2,6 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+.txt
+
 
 /.quarto/
 **/*.quarto_ipynb

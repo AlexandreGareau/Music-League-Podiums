@@ -9,8 +9,12 @@ website:
     left:
       - href: index.qmd
         text: Podiums
-      - href: about.qmd
-        text: animation
+      # - href: about.qmd
+      #   text: about
+    right:
+      - icon: github
+        href: https://github.com/AlexandreGareau/Music-League-Podiums
+        aria-label: GitHub
 
 format:
   html:
