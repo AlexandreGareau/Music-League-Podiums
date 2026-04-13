@@ -2,7 +2,7 @@ library(tidyverse)
 all_votes <- readRDS("all_votes.rds")
 # all_votes <- all_votes %>% filter(!grepl("Left the league", submitter))
 
-ranking_plot <- function(rank_data, rank_value, x_label, decreasing = TRUE) {
+ranking_plot <- function(rank_data, rank_value, x_label, label_color = "black", label_pos = 1, decreasing = TRUE) {
   
   rank_value <- rlang::ensym(rank_value)
   
@@ -10,8 +10,8 @@ ranking_plot <- function(rank_data, rank_value, x_label, decreasing = TRUE) {
   xmax <- max(pull(rank_data, !!rank_value), na.rm = TRUE)
   x_range <- xmax - xmin
   
-  label_position <- 0.05 * xmax
-  label_color <- if (any(rank_data[[rank_value]] < 0)) "white" else "black"
+  label_position <- 0.05 * xmax * label_pos
+  # label_color <- if (any(rank_data[[rank_value]] < 0)) "white" else "black"
   
   p <- rank_data %>% 
     filter(!grepl("Left the league", submitter)) %>% 
@@ -31,7 +31,6 @@ ranking_plot <- function(rank_data, rank_value, x_label, decreasing = TRUE) {
         NA_character_
       ),
       hjust = if_else(!!rank_value < 0, 1.25, -.25),
-      color = if_else(any(!!rank_value < 0), "white", "black")
     ) %>% 
     
     ggplot(aes(x = !!rank_value, y = submitter, fill = podium)) +
@@ -62,6 +61,7 @@ ranking_plot <- function(rank_data, rank_value, x_label, decreasing = TRUE) {
   return(p)
 }
 
+# Les prix ----
 # Sum of points 
 # Winner: Captnmeaty
 score <- 
@@ -147,17 +147,73 @@ polarizing <-
 all_votes %>%
   group_by(submitter) %>%
   summarise(
-    mean_score = mean(score, na.rm = TRUE),
-    sd_score   = sd(score, na.rm = TRUE),
-    polarizing_index = mean_score * sd_score
+    polarizing_index = mean(score, na.rm = TRUE) * sd(score, na.rm = TRUE)
   ) %>%
   arrange(desc(polarizing_index))
 
 
 # Prix c'est beau continue comme ça
-improved <- 
+change <-
 all_votes %>%
   distinct(round_number, submitter, score) %>%
   arrange(submitter, round_number) %>% 
-  mutate(improvement = score - lag(score), .by = submitter) %>% 
-  summarise(improv_mean = mean(improvement, na.rm = T), .by = submitter)
+  mutate(change = score - lag(score), .by = submitter) %>% 
+  summarise(change_mean = mean(change, na.rm = T), .by = submitter) %>% 
+  arrange(-change_mean)
+
+# Prix linéaire
+linear_trend <- 
+  all_votes %>%
+  distinct(round_number, submitter, score) %>%
+  arrange(submitter, round_number) %>%
+  group_by(submitter) %>%
+  nest() %>%
+  mutate(
+    model = map(data, ~ lm(score ~ round_number, data = .x)),
+    coef  = map(model, broom::tidy)
+  ) %>%
+  unnest(coef) %>%
+  filter(term == "round_number") %>%
+  select(submitter, slope = estimate) %>% 
+  arrange(-slope) %>% 
+  ungroup()
+
+# Prix anti-guillaume
+anti_gui <- all_votes %>% 
+  filter(grepl("Guillaume", voter)) %>% 
+  drop_na(vote) %>%
+  summarise(gui_hate = sum(vote), .by = submitter) %>% 
+  arrange(gui_hate)
+
+
+# Le gagnant ----
+
+clean_rank <- function(prix_data, rank_value) {
+  prix_data %>% 
+    filter(!grepl("Left the league", submitter)) %>% 
+    mutate(rank = dense_rank({{rank_value}})) %>% 
+    arrange(rank) %>% 
+    pivot_longer(-c(submitter, rank)) %>% 
+    select(-value)
+}
+
+# final_score <- 
+  bind_rows(
+  clean_rank(score, -score),
+  clean_rank(mean_rank, mean_rank),
+  clean_rank(sum_1st, -sum_1st),
+  clean_rank(sub_text, -sub_text),
+  clean_rank(mean_distinct, -mean_distinct),
+  clean_rank(mean_giver, -avg_points),
+  clean_rank(sum_last, -sum_last),
+  clean_rank(contrarian, corr),
+  clean_rank(polarizing, -polarizing_index),
+  clean_rank(change, -change_mean),
+  clean_rank(linear_trend, -slope),
+  clean_rank(anti_gui, gui_hate)
+) %>% 
+  # summarise(total_rank = sum(rank <= 3), .by = submitter) %>%
+  summarise(mean_rank = mean(rank), .by = submitter) %>%
+  arrange(mean_rank) %>% 
+  ranking_plot(mean_rank, "Total des podiums", decreasing = F)
+

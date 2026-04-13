@@ -5,12 +5,14 @@ project:
 website:
   title: "Spotify Me Een Klap Papa - Saison 25-26"
   navbar:
-    logo: logo/adaptive-icon.png
+    logo: images/adaptive-icon.png
     left:
       - href: index.qmd
-        text: Podiums
-      # - href: about.qmd
-      #   text: about
+        text: Merci Antoine !!!
+      - href: podiums.qmd
+        text: Liste des Prix
+      - href: winner.qmd
+        text: Le Gagnant des gagnants
     right:
       - icon: github
         href: https://github.com/AlexandreGareau/Music-League-Podiums
@@ -21,8 +23,6 @@ format:
     theme: vapor
     smooth-scroll: true
     echo: false
-    toc: true
-    toc-title: Liste des prix
 
 editor: visual
 

@@ -1,0 +1,52 @@
+---
+title: "Le GAGNANT des gagnants"
+---
+
+```{r setup}
+#| message: false
+#| warning: false
+source("R/vapor_style.R")
+source("R/ranking.R")
+
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  cache = TRUE,
+  fig.height = 4,
+  fig.width = 8   # mostly ignored in dashboard, but harmless
+)
+```
+
+::: callout-note
+Rang moyen sur tous les prix de la **liste officielle des prix**
+:::
+
+```{r}
+clean_rank <- function(prix_data, rank_value) {
+  prix_data %>% 
+    filter(!grepl("Left the league", submitter)) %>% 
+    mutate(rank = dense_rank({{rank_value}})) %>% 
+    arrange(rank) %>% 
+    pivot_longer(-c(submitter, rank)) %>% 
+    select(-value)
+}
+
+bind_rows(
+  clean_rank(score, -score),
+  clean_rank(mean_rank, mean_rank),
+  clean_rank(sum_1st, -sum_1st),
+  clean_rank(sub_text, -sub_text),
+  clean_rank(mean_distinct, -mean_distinct),
+  clean_rank(mean_giver, -avg_points),
+  clean_rank(sum_last, -sum_last),
+  clean_rank(contrarian, corr),
+  clean_rank(polarizing, -polarizing_index),
+  clean_rank(change, -change_mean),
+  clean_rank(linear_trend, -slope),
+  clean_rank(anti_gui, gui_hate)
+) %>% 
+  # summarise(total_rank = sum(rank <= 3), .by = submitter) %>%
+  summarise(mean_rank = mean(rank), .by = submitter) %>%
+  arrange(mean_rank) %>% 
+  ranking_plot(mean_rank, "Rang moyen", decreasing = F)
+```
