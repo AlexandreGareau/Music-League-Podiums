@@ -197,8 +197,7 @@ clean_rank <- function(prix_data, rank_value) {
     select(-value)
 }
 
-# final_score <- 
-  bind_rows(
+bind_rows(
   clean_rank(score, -score),
   clean_rank(mean_rank, mean_rank),
   clean_rank(sum_1st, -sum_1st),
@@ -215,5 +214,5 @@ clean_rank <- function(prix_data, rank_value) {
   # summarise(total_rank = sum(rank <= 3), .by = submitter) %>%
   summarise(mean_rank = mean(rank), .by = submitter) %>%
   arrange(mean_rank) %>% 
-  ranking_plot(mean_rank, "Total des podiums", decreasing = F)
+  ranking_plot(mean_rank, "Rang moyen", decreasing = F)
 

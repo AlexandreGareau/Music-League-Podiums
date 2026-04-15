@@ -43,6 +43,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-2fee8176d83b8b83b3f52c1bb3497846.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -159,20 +162,37 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Rang moyen sur tous les prix de la <strong>liste officielle des prix</strong></p>
+<p>Rang moyen sur tous les prix de la <strong>LISTE OFFICIELLE DES PRIX.</strong></p>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="winner_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="768"></p>
+<p><a href="winner_files/figure-html/unnamed-chunk-1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="winner_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="768"></a></p>
 </figure>
 </div>
 </div>
 </div>
+<section id="post-mortem-pour-les-défunts" class="level2">
+<h2 class="anchored" data-anchor-id="post-mortem-pour-les-défunts">Post-mortem pour les défunts</h2>
+<p>Ils étaient trois. Trois âmes courageuses, venues braver l’arène impitoyable de la ligue musicale.</p>
+<p><strong>Dominic, Karl et Olivier.</strong></p>
+<p>Au commencement, il y avait l’espoir. Des soumissions inspirées. Des convictions fortes. Peut-être même une naïveté touchante : celle de croire que leurs choix seraient compris… appréciés… voire célébrés.</p>
+<p>Mais la ligue, elle, ne pardonne pas.</p>
+<p>Ronde après ronde, les scores tombent — froids, mécaniques, presque cruels. Un 7 ici, un 5 là… et parfois ce geste fatal : le 1-point silencieux, lâché sans explication, comme une trahison en pleine nuit. Les commentaires, eux, oscillent entre poésie douteuse et jugements expéditifs. Rien de personnel, bien sûr. Jamais personnel. (Toujours personnel.)</p>
+<p>La frustration s’installe. Insidieuse. Elle s’infiltre dans chaque écoute, chaque vote, chaque notification. Ce qui était jeu devient épreuve. Ce qui était plaisir devient calcul. Et un jour, sans tambour ni trompette — ou peut-être avec un dernier soupir — ils disparaissent.</p>
+<ul>
+<li><p>Dominic dépose les armes, sourir aux lèvres.</p></li>
+<li><p>Karl regarde une dernière fois le classement, puis ferme l’onglet.</p></li>
+<li><p>Olivier… on dit qu’il entend encore les notes de ses chansons incomprises résonner dans le vide.</p></li>
+</ul>
+<p>Leur départ n’est pas un échec. C’est une conséquence. Celle d’un système où la gloire est éphémère, les règles peu comprises mais les points vont direct au coeur.</p>
+<p>Qu’ils reposent en paix… ou du moins, loin des grilles de pointage.</p>
+<p><a href="images/left.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="images/left.jpeg" class="img-fluid"></a></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -576,6 +596,38 @@ Note
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

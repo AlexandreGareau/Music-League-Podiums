@@ -1,5 +1,6 @@
 ---
 title: "Le GAGNANT des gagnants"
+lightbox: true
 ---
 
 ```{r setup}
@@ -18,7 +19,7 @@ knitr::opts_chunk$set(
 ```
 
 ::: callout-note
-Rang moyen sur tous les prix de la **liste officielle des prix**
+Rang moyen sur tous les prix de la **LISTE OFFICIELLE DES PRIX.**
 :::
 
 ```{r}
@@ -50,3 +51,29 @@ bind_rows(
   arrange(mean_rank) %>% 
   ranking_plot(mean_rank, "Rang moyen", decreasing = F)
 ```
+
+## Post-mortem pour les défunts
+
+Ils étaient trois. Trois âmes courageuses, venues braver l’arène impitoyable de la ligue musicale.
+
+**Dominic, Karl et Olivier.**
+
+Au commencement, il y avait l’espoir. Des soumissions inspirées. Des convictions fortes. Peut-être même une naïveté touchante : celle de croire que leurs choix seraient compris… appréciés… voire célébrés.
+
+Mais la ligue, elle, ne pardonne pas.
+
+Ronde après ronde, les scores tombent — froids, mécaniques, presque cruels. Un 7 ici, un 5 là… et parfois ce geste fatal : le 1-point silencieux, lâché sans explication, comme une trahison en pleine nuit. Les commentaires, eux, oscillent entre poésie douteuse et jugements expéditifs. Rien de personnel, bien sûr. Jamais personnel. (Toujours personnel.)
+
+La frustration s’installe. Insidieuse. Elle s’infiltre dans chaque écoute, chaque vote, chaque notification. Ce qui était jeu devient épreuve. Ce qui était plaisir devient calcul. Et un jour, sans tambour ni trompette — ou peut-être avec un dernier soupir — ils disparaissent.
+
+-   Dominic dépose les armes, sourir aux lèvres.
+
+-   Karl regarde une dernière fois le classement, puis ferme l’onglet.
+
+-   Olivier… on dit qu’il entend encore les notes de ses chansons incomprises résonner dans le vide.
+
+Leur départ n’est pas un échec. C’est une conséquence. Celle d’un système où la gloire est éphémère, les règles peu comprises mais les points vont direct au coeur.
+
+Qu’ils reposent en paix… ou du moins, loin des grilles de pointage.
+
+![](images/left.jpeg)

@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Alexandre Gareau, PhD">
 
 <title>Merci pour ton travail – Spotify Me Een Klap Papa - Saison 25-26</title>
 <style>
@@ -44,6 +43,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-2fee8176d83b8b83b3f52c1bb3497846.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -149,12 +151,6 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Alexandre Gareau, PhD </p>
-          </div>
-  </div>
     
   
     
@@ -166,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Merci antoine pour tout ton dévouement. Sans toi, tout le monde n’aurait pas eu autant de fun à chialer l’un contre l’autre. Tout le monde en ressort changé… pour le meilleur et pour le pire dans cette fin de trentaine qui achève pour tout le monde. Oussé qu’on ça va? oussé que les <strong>Give me een klap papa</strong> seront à l’aube de leur quarantaine. C’est certain qu’on ne peut pas dire que tu n’as pas peur de te mouiller. Allez sautez dans la vie les amis et suivez Antoine…</p>
-<p><img src="images/animation.gif" class="img-fluid"></p>
+<p><a href="images/animation.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/animation.gif" class="img-fluid"></a></p>
 <section id="merci-de-toujours-être-là" class="level2">
 <h2 class="anchored" data-anchor-id="merci-de-toujours-être-là">Merci de toujours être là</h2>
 <p>Tu es fidèle au poste depuis plus de 10 ans à choisir la meilleur musique qu’il existe. <img src="images/IMG_4820.JPG" class="img-fluid"></p>
@@ -619,6 +615,38 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

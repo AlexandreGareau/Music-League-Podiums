@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
 ```
 
 # Le prix du meilleur pointeur
+
 ::: callout-note
 C'est les points comme sur Music League.
 :::
@@ -31,6 +32,7 @@ score %>% ranking_plot(score, "Nb. de points")
 ```
 
 # Prix du meilleur au classement
+
 ::: callout-note
 La moyenne de tout vos classements à travers toutes les rondes.
 :::
@@ -40,54 +42,67 @@ mean_rank %>% ranking_plot(mean_rank, "Rang moyen", decreasing = F)
 ```
 
 # Prix de la pute qui gagne tout le temps
+
 ::: callout-note
 Le nombre de première place cumulées.
 :::
+
 ```{r}
 sum_1st %>% ranking_plot(sum_1st, "Nb. de 1st place")
 ```
 
 # Prix l'hurluberlu qui écrit tout le temps
+
 ::: callout-note
 Le nombre moyen de caractères tapés au moment de voter pour les chansons des autres.
 :::
+
 ```{r}
 vote_text %>% ranking_plot(vote_text, "Nb. de caractères")
 ```
 
 # Prix du poète qui tente d'inspirer le vote
+
 ::: callout-note
 Le nombre moyen de caractères tapés lorsqu'il est temps de soumettre sa propre chanson.
 :::
+
 ```{r}
 sub_text %>% ranking_plot(sub_text, "Nb. de caractères")
 ```
 
 # Prix choix du public
+
 ::: callout-note
 Le nombre moyen de personnes distinctes qui votent pour ta chanson.
 :::
+
 ```{r}
 mean_distinct %>% ranking_plot(mean_distinct, "Nb. de personnes")
 ```
 
 # Prix du plus généreux
+
 ::: callout-note
 Le nombre moyen de points maximum attribués à une soumission, par ronde.
 :::
+
 ```{r}
 mean_giver %>% ranking_plot(avg_points, "Nb. de points")
 ```
 
 # Prix citron
+
 ::: callout-note
 Le nombre de dernière place cumulées.
 :::
+
 ```{r}
 sum_last %>% ranking_plot(sum_last, "Nb. de dernière place")
 ```
 
 # Prix contre le meta (contre-sens)
+
 ::: callout-note
 Corrélation entre le score attribué et la moyenne du groupe (excluant le score attribué). Si une personne donne un score plus bas que la moyenne du groupe (excluant son prope score), cela signifie qu'elle est à contre-sens du groupe (corrélation négative)
 :::
@@ -99,6 +114,7 @@ contrarian %>% ranking_plot(corr, "Corrélation", "white", decreasing = F) +
 ```
 
 # Prix mi-figue mi-raisin
+
 ::: callout-note
 L’indice mi-figue mi-raisin est calculé à partir de la moyenne et de l’écart-type des points obtenus. Plus la moyenne est élevée, plus la personne est aimée. Plus l’écart-type est élevé, plus le score de la personne varie d’une ronde à l’autre, ce qui signifie qu’elle est parfois plus aimée et parfois moins aimée. Les deux indicateurs sont ensuite multipliés pour créer l’indice.
 :::
@@ -108,28 +124,33 @@ polarizing %>% ranking_plot(polarizing_index, "Indice mi-figue mi-raisin")
 ```
 
 # Prix commencer en mouton finir en lion
+
 ::: callout-note
 La moyenne du changement d’une ronde à l’autre. Un changement positif indique qu’à chaque nouvelle ronde, le nombre de points obtenus est plus élevé que lors de la ronde précédente, et inversement pour un changement négatif.
 :::
+
 ```{r}
 change %>% ranking_plot(change_mean, "Moyenne d'amélioration ronde après ronde") +
   scale_x_continuous(limits = c(-1, 1))
 ```
 
 # Prix "Let him cook"
+
 ::: callout-note
 Le coefficient de pente linéaire d’une ronde à l’autre. Un coefficient positif indique que la personne suit une tendance à la hausse depuis le début de la ligue, et inversement pour un coefficient négatif (cette personne est en déclin, il coule).
 :::
+
 ```{r}
 linear_trend %>% ranking_plot(slope, "Coefficient linéaire", label_pos = -10, label_color = "white") +
   scale_x_continuous(limits = c(-.5, .5))
 ```
 
-
 # Prix "The Wrath of Guillaume"
+
 ::: callout-note
 Le nombre total de points que Guillaume t’a attribués dans TOUTES LES RONDES.
 :::
+
 ```{r}
 anti_gui %>% ranking_plot(gui_hate, "Nb. de points donné par Guillaume",
                           label_pos = -3, label_color = "white", decreasing = F) +
