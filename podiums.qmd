@@ -154,5 +154,5 @@ Le nombre total de points que Guillaume t’a attribués dans TOUTES LES RONDES.
 ```{r}
 anti_gui %>% ranking_plot(gui_hate, "Nb. de points donné par Guillaume",
                           label_pos = -3, label_color = "white", decreasing = F) +
-  scale_x_continuous(limits = c(-10, 50))
+  scale_x_continuous(limits = c(-10, 60))
 ```
