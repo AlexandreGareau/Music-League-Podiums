@@ -1,5 +1,5 @@
 library(tidyverse)
-all_votes <- readRDS("all_votes.rds")
+all_votes <- readRDS("data/all_votes.rds")
 # all_votes <- all_votes %>% filter(!grepl("Left the league", submitter))
 
 ranking_plot <- function(rank_data, rank_value, x_label, label_color = "black", label_pos = 1, decreasing = TRUE) {

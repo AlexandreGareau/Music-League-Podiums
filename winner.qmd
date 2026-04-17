@@ -52,6 +52,8 @@ bind_rows(
   ranking_plot(mean_rank, "Rang moyen", decreasing = F)
 ```
 
+![](images/marcan.gif)
+
 ## Post-mortem pour les défunts
 
 Ils étaient trois. Trois âmes courageuses, venues braver l’arène impitoyable de la ligue musicale.

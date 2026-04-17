@@ -115,4 +115,4 @@ all_votes <-
     
   })
 
-saveRDS(all_votes, "all_votes.rds")
+saveRDS(all_votes, "data/all_votes.rds")
